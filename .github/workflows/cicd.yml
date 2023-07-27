@@ -37,4 +37,4 @@ jobs:
         RECIPIENT_EMAIL: kiran.sv@tibilsolutions.com  # Replace with the recipient's email
 
       run: |
-        python reports/send_email_script.py $GMAIL_USERNAME $GMAIL_PASSWORD $RECIPIENT_EMAIL
+        python send_email_script.py $GMAIL_USERNAME $GMAIL_PASSWORD $RECIPIENT_EMAIL
