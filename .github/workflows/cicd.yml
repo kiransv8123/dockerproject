@@ -20,7 +20,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run Pytest on BrowserStack
 
-      run: pytest -v -s --capture=tee-sys .\test.py --html=report.html
+      run: pytest -v -s --capture=tee-sys ./test.py --html=report.html
 
 
     - name: Send Email Report
