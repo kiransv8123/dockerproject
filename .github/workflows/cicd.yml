@@ -20,11 +20,8 @@ jobs:
       - name: Run tests in Docker container
         run: docker run -v ${{github.workspace}}:/app selenium_test_image
 
-      - name: Send Email Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: Test Report
-          path: ./report.html
+      - name: Copy send_email_script.py to Docker container
+        run: docker cp send_email_script.py $(docker ps -q -f ancestor=selenium_test_image):/app
 
       - name: Configure Gmail and Send Email
         env:
@@ -33,5 +30,10 @@ jobs:
           RECIPIENT_EMAIL: kiran.sv@tibilsolutions.com  # Replace with the recipient's email
 
         run: |
-          docker cp send_email_script.py selenium_test_image:/app
-          docker exec -e GMAIL_USERNAME=$GMAIL_USERNAME -e GMAIL_PASSWORD=$GMAIL_PASSWORD -e RECIPIENT_EMAIL=$RECIPIENT_EMAIL selenium_test_image python send_email_script.py $GMAIL_USERNAME $GMAIL_PASSWORD $RECIPIENT_EMAIL
+          docker exec -e GMAIL_USERNAME=$GMAIL_USERNAME -e GMAIL_PASSWORD=$GMAIL_PASSWORD -e RECIPIENT_EMAIL=$RECIPIENT_EMAIL $(docker ps -q -f ancestor=selenium_test_image) python send_email_script.py $GMAIL_USERNAME $GMAIL_PASSWORD $RECIPIENT_EMAIL
+
+      - name: Send Email Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test Report
+          path: ./report.html
