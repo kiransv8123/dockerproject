@@ -20,9 +20,6 @@ jobs:
       - name: Run tests in Docker container
         run: docker run -v ${{github.workspace}}:/app selenium_test_image
 
-      - name: Copy send_email_script.py to Docker container
-        run: docker cp send_email_script.py $(docker ps -q -f ancestor=selenium_test_image):/app
-
       - name: Configure Gmail and Send Email
         env:
           GMAIL_USERNAME: ${{secrets.GMAIL_USERNAME}}
