@@ -18,7 +18,7 @@ jobs:
         run: docker build -t selenium_test_image .
 
       - name: Run tests in Docker container
-        run: docker run -d -v ${{github.workspace}}:/app --name selenium_container --memory=2g selenium_test_image
+        run: docker run -d -v ${{github.workspace}}:/app --name selenium_container --memory=3g selenium_test_image
         # The -d flag runs the container in detached mode (background)
 
       - name: Wait for container to start
