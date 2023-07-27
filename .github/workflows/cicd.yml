@@ -29,11 +29,15 @@ jobs:
 
       - name: Fetch container logs
         run: docker logs selenium_container
+
+      - name: Save test report as artifact
+        run: |
+          mkdir -p reports
+          cp ./reports
+        # Make sure to replace `path/to/generated/report.html` with the actual path of the report generated during the tests
+
       - name: Send Email Report
         uses: actions/upload-artifact@v2
         with:
           name: Test Report
-          path: ./report.html
-
-
-
+          path: ./reports/report.html
