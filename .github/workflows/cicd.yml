@@ -32,3 +32,7 @@ jobs:
         with:
           name: Test Report
           path: ./report.html
+
+      - name: Fetch container logs
+        run: docker logs selenium_container
+
