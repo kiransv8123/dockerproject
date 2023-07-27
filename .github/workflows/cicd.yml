@@ -27,12 +27,13 @@ jobs:
       - name: Execute test script inside container
         run: docker exec -e GMAIL_USERNAME=${{secrets.GMAIL_USERNAME}} -e GMAIL_PASSWORD=${{secrets.GMAIL_PASSWORD}} -e RECIPIENT_EMAIL=kiran.sv@tibilsolutions.com selenium_container python send_email_script.py ${{secrets.GMAIL_USERNAME}} ${{secrets.GMAIL_PASSWORD}} kiran.sv@tibilsolutions.com
 
+      - name: Fetch container logs
+        run: docker logs selenium_container
       - name: Send Email Report
         uses: actions/upload-artifact@v2
         with:
           name: Test Report
           path: ./report.html
 
-      - name: Fetch container logs
-        run: docker logs selenium_container
+
 
