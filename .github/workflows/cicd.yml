@@ -24,8 +24,8 @@ jobs:
       - name: Wait for container to start
         run: docker ps -f "name=selenium_container" --filter status=running --format "{{.ID}}"
 
-      - name: Execute test script inside container
-        run: docker exec -e GMAIL_USERNAME=${{secrets.GMAIL_USERNAME}} -e GMAIL_PASSWORD=${{secrets.GMAIL_PASSWORD}} -e RECIPIENT_EMAIL=kiran.sv@tibilsolutions.com selenium_container python send_email_script.py ${{secrets.GMAIL_USERNAME}} ${{secrets.GMAIL_PASSWORD}} kiran.sv@tibilsolutions.com
+#      - name: Execute test script inside container
+#        run: docker exec -e GMAIL_USERNAME=${{secrets.GMAIL_USERNAME}} -e GMAIL_PASSWORD=${{secrets.GMAIL_PASSWORD}} -e RECIPIENT_EMAIL=kiran.sv@tibilsolutions.com selenium_container python send_email_script.py ${{secrets.GMAIL_USERNAME}} ${{secrets.GMAIL_PASSWORD}} kiran.sv@tibilsolutions.com
 
       - name: Send Email Report
         uses: actions/upload-artifact@v2
