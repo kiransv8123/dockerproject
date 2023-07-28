@@ -17,5 +17,4 @@ def test_get_user():
 
 
 def test_example():
-    print("Running test_example inside the container!")
-#
+    print("Running test_scripts inside the container!")
