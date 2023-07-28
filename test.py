@@ -13,7 +13,7 @@ def test_create_user():
     }
     response = requests.post("https://reqres.in/api/register", json=data)
     assert response.status_code == 200
-    assert response.json()["id"] == 4
+    assert response.json()["id"] == 200
 
 
 # def test_example():
