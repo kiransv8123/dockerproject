@@ -16,5 +16,6 @@ def test_get_user():
 #     assert response.json()["id"] == 4
 
 
-def test_example():
-    print("Running test_example inside the container!")
+# def test_example():
+#     print("Running test_example inside the container!")
+#
