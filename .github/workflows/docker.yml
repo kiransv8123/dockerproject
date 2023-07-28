@@ -1,21 +1,40 @@
-name: Docker
-
+name: selenium test_browserstack.py
 on:
   push:
     branches:
-      - main # Adjust the branch name as needed
-
+        - master
 jobs:
   build:
-    name: Build Docker Image and Run Tests
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9  # Replace 'x' with your desired Python version
 
-    - name: Build Docker Image
-      run: docker build -t my-docker-image .
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Run Pytest
 
-    - name: Run Tests in Docker Container
-      run: docker run --rm my-docker-image pytest -v -s --capture=tee-sys ./test.py --html=report.html
+      run: pytest -v -s --capture=tee-sys ./test.py --html=report.html
+
+
+    - name: Send Email Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: Test Report
+        path: ./report.html
+
+    - name: Configure Gmail and Send Email
+      env:
+        GMAIL_USERNAME: ${{secrets.GMAIL_USERNAME}}
+        GMAIL_PASSWORD: ${{secrets.GMAIL_PASSWORD}}
+
+        RECIPIENT_EMAIL: kiran.sv@tibilsolutions.com  # Replace with the recipient's email
+
+      run: |
+        python send_email_script.py $GMAIL_USERNAME $GMAIL_PASSWORD $RECIPIENT_EMAIL
