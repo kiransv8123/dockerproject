@@ -6,14 +6,14 @@ def test_get_user():
     assert response.status_code == 200
 
 
-# def test_create_user():
-#     data = {
-#         "email": "eve.holt@reqres.in",
-#         "password": "pistol"
-#     }
-#     response = requests.post("https://reqres.in/api/register", json=data)
-#     assert response.status_code == 200
-#     assert response.json()["id"] == 4
+def test_create_user():
+    data = {
+        "email": "eve.holt@reqres.in",
+        "password": "pistol"
+    }
+    response = requests.post("https://reqres.in/api/register", json=data)
+    assert response.status_code == 200
+    assert response.json()["id"] == 4
 
 
 def test_example():
