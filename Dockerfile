@@ -1,14 +1,26 @@
-# Use a Python base image
-FROM python:3.9
+# Stage 1: Build the application and install dependencies
+FROM python:3.9 AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy the repository contents into the container
+# Copy only the dependency files first to leverage Docker layer caching
+COPY requirements.txt .
+
+# Install the dependencies (this layer will be cached if requirements.txt hasn't changed)
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code
 COPY . .
 
-# Install dependencies
-RUN pip install -r requirements.txt
+# Build your application (if applicable)
 
-# Set entry point for running tests
-ENTRYPOINT ["pytest", "-v", "-s", "--capture=tee-sys", "./test.py", "--html=report.html"]
+# Stage 2: Create the final image with only the built artifacts and necessary dependencies
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Copy only the built artifacts and the installed dependencies from the previous stage
+COPY --from=builder /app .
+
+# Run your application (or tests in your case)
+CMD ["python", "your_test_script.py"]
