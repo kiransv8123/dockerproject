@@ -23,4 +23,4 @@ WORKDIR /app
 COPY --from=builder /app .
 
 # Run your application (or tests in your case)
-CMD ["python", "your_test_script.py"]
+CMD ["python", "test.py"]
