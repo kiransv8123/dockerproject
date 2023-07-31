@@ -4,7 +4,7 @@ FROM python:3.9
 # Set working directory
 WORKDIR /app
 
-# Copy the repository contents into the container
+# Copy the repository contents into the containerrs
 COPY . .
 
 # Install dependencies
